@@ -1,8 +1,8 @@
 {
     "name": "Kamera Incident Detection Backend",
     "build": {
-        "dockerfile": "Dockerfile",  // This will point to your Dockerfile in the Backend
-        "context": ".."               // Context is set to the parent directory
+        "dockerfile": "../Backend/Dockerfile",  // Reference to the Dockerfile in the Backend directory
+        "context": "../Backend"                  // Set context to the Backend directory
     },
     "settings": {
         "python.pythonPath": "/usr/local/bin/python"  // Adjust as necessary
