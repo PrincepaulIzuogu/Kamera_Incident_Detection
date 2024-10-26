@@ -1,0 +1,17 @@
+{
+    "name": "Kamera Incident Detection Backend",
+    "build": {
+        "dockerfile": "Dockerfile",  // This will point to your Dockerfile in the Backend
+        "context": ".."               // Context is set to the parent directory
+    },
+    "settings": {
+        "python.pythonPath": "/usr/local/bin/python"  // Adjust as necessary
+    },
+    "extensions": [
+        "ms-python.python",            // Python support
+        "ms-toolsai.jupyter"           // Jupyter notebook support (optional)
+    ],
+    "postCreateCommand": "pip install -r requirements.txt", // Install dependencies
+    "postStartCommand": "python src/data_preprocessing.py && python src/model_training.py && python src/real_time_detection.py", // Run scripts automatically
+    "remoteUser": "vscode"           // Run commands as the 'vscode' user
+}
