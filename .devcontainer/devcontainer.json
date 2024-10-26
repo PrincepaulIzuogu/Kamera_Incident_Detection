@@ -13,5 +13,5 @@
     ],
     "postCreateCommand": "pip install -r requirements.txt", // Install dependencies
     "postStartCommand": "python src/data_preprocessing.py && python src/model_training.py && python src/real_time_detection.py", // Run scripts automatically
-    "remoteUser": "vscode"           // Run commands as the 'vscode' user
+    "remoteUser": "root"           // Run commands as the 'root' user
 }
