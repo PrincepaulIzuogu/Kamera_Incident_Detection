@@ -1,35 +1,37 @@
-# Use an official Python image as a base
-FROM python:3.9-slim
+# Use a base image with CUDA support
+FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Install necessary packages
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     cmake \
-    wget \
+    python3-dev \
+    python3-pip \
     libatlas-base-dev \
-    libboost-all-dev \
-    libopencv-dev \
-    && apt-get clean
+    && rm -rf /var/lib/apt/lists/*
 
-# Clone OpenPose repository
-RUN git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
+# Clone OpenPose and install it
+RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
 
-# Set up OpenPose environment
+# Set OpenPose as the working directory
 WORKDIR /openpose
-RUN git submodule update --init --recursive
 
-# Back to app directory
-WORKDIR /app
+# Build OpenPose
+RUN bash ./scripts/ubuntu/install_openpose.sh
 
-# Copy requirements and install Python dependencies
+# Install Python dependencies
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire project directory into /app (going back two directories)
-COPY ../../ .  
+# Copy your application files
+COPY ../../ ./
+
+# Set environment variables for OpenPose
+ENV PYTHONPATH="/openpose/python:${PYTHONPATH}"
+
 # Set the command to run your backend application
 CMD ["python", "src/data_preprocessing.py"]
