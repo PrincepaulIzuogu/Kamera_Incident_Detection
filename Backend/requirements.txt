@@ -5,3 +5,4 @@ flask
 twilio
 ml-dtypes
 requests
+uvicorn
