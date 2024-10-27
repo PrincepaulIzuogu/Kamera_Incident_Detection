@@ -1,22 +1,22 @@
 {
     "name": "Kamera Incident Detection Backend",
     "build": {
-        "dockerfile": "../Backend/Dockerfile",  // Reference to the Dockerfile in the Backend directory
-        "context": "../Backend",                  // Set context to the Backend directory
+        "dockerfile": "../Backend/Dockerfile",
+        "context": "../Backend",
         "args": {
             "VARIANT": "bullseye"
         }
     },
     "settings": {
-        "python.pythonPath": "/usr/local/bin/python"  // Adjust as necessary
+        "python.pythonPath": "/usr/local/bin/python3"  // Adjusted to python3
     },
     "extensions": [
         "ms-python.python",            // Python support
         "ms-toolsai.jupyter"           // Jupyter notebook support (optional)
     ],
     "runArgs": [
-        
-    ],  
-    "postStartCommand": "python Backend/src/data_preprocessing.py && python Backend/src/model_training.py && python Backend/src/real_time_detection.py", // Run scripts automatically
+        // Specify any necessary run arguments here, e.g., for GPU support
+    ],
+    "postStartCommand": "python3 src/data_preprocessing.py && python3 src/model_training.py && python3 src/real_time_detection.py",  // Use python3 for commands
     "remoteUser": "root"           // Run commands as the 'root' user
 }
