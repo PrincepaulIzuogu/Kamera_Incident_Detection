@@ -1,16 +1,11 @@
 import cv2
 import sys
-sys.path.append('/openpose/python')
-
-try:
-    from openpose import pyopenpose as op
-except ImportError as e:
-    print("ImportError:", e)
-    sys.exit(1)
+sys.path.append('/openpose/python')  # Add OpenPose Python path
 
 def setup_openpose():
+    import openpose.pyopenpose as op  # Import here to avoid circular import issues
     params = {
-        "model_folder": "/openpose/models/",  # Ensure this path is correct
+        "model_folder": "/openpose/models/",
         "hand": False,
         "face": False,
     }
