@@ -11,6 +11,6 @@
         "ms-python.python",            // Python support
         "ms-toolsai.jupyter"           // Jupyter notebook support (optional)
     ],
-    "postStartCommand": "python src/data_preprocessing.py && python src/model_training.py && python src/real_time_detection.py", // Run scripts automatically
+    "postStartCommand": "python ../Backend/src/data_preprocessing.py && python ../Backend/src/model_training.py && python ../Backend/src/real_time_detection.py", // Run scripts automatically
     "remoteUser": "root"           // Run commands as the 'root' user
 }
