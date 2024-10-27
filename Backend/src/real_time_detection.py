@@ -1,25 +1,33 @@
 import cv2
-from openpose_setup import setup_openpose  # Import from the new module
+import mediapipe as mp
 
-def detect_falls(video_source=0):  # Default to 0 for the first webcam
+def detect_falls(video_source):
     cap = cv2.VideoCapture(video_source)
-    opWrapper = setup_openpose()
+
+    # Initialize MediaPipe Pose
+    mp_pose = mp.solutions.pose
+    pose = mp_pose.Pose()
 
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
-            print("Failed to grab frame")
             break
-        
-        datum = op.Datum()
-        datum.cvInputData = frame
-        opWrapper.emplaceAndPop([datum])
-        
-        # Display the results
-        cv2.imshow("OpenPose", datum.cvOutputData)
 
-        # Placeholder for fall detection logic based on keypoints
-        # Add your fall detection logic here
+        # Convert the BGR image to RGB
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Process the frame and get pose landmarks
+        results = pose.process(rgb_frame)
+
+        # Draw the pose annotation on the frame
+        if results.pose_landmarks:
+            mp.solutions.drawing_utils.draw_landmarks(
+                frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+
+        # Display the frame with pose landmarks
+        cv2.imshow("MediaPipe Pose", frame)
+
+        # Placeholder: Add fall detection logic here based on keypoints
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -28,4 +36,5 @@ def detect_falls(video_source=0):  # Default to 0 for the first webcam
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    detect_falls(0)  # Use 0 for the default webcam
+    video_source = 0  # Use webcam
+    detect_falls(video_source)
