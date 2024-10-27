@@ -29,8 +29,8 @@ RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpo
 # Set OpenPose as the working directory
 WORKDIR /openpose
 
-# Build OpenPose
-RUN bash ./scripts/ubuntu/install_openpose.sh
+# Install dependencies for OpenPose
+RUN bash ./scripts/ubuntu/install_deps.sh
 
 # Install Python dependencies
 COPY requirements.txt ./
