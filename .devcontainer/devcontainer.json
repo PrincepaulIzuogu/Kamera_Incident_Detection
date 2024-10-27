@@ -17,7 +17,7 @@
     "runArgs": [
         // Specify any necessary run arguments here, e.g., for GPU support
     ],
-    "postStartCommand": "python3 src/data_preprocessing.py && python3 src/model_training.py && python3 src/real_time_detection.py",  // Use python3 for commands
+    "postStartCommand": "python3 ../Backend/src/data_preprocessing.py && python3 ../Backend/src/model_training.py && python3 ../Backend/src/real_time_detection.py",  // Use python3 and correct paths
     "remoteUser": "root",           // Run commands as the 'root' user
     "forwardPorts": [8000]          // Forward port 8000 to the host
 }
