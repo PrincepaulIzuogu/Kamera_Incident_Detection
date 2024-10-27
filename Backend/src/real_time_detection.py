@@ -1,4 +1,7 @@
 import cv2
+import sys
+sys.path.append('/openpose/python')
+
 from openpose import pyopenpose as op
 
 def setup_openpose():
