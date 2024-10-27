@@ -4,4 +4,4 @@ tensorflow==2.12.0
 flask
 twilio
 ml-dtypes
-requests<3,>=2.21.0
+requests
