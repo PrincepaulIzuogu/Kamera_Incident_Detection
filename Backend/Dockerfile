@@ -1,5 +1,14 @@
+# Backend/Dockerfile
+
 # Use a base image with CUDA support
 FROM nvidia/cuda:11.8.0-base-ubuntu20.04
+
+# Set the timezone
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
+    tzdata && \
+    ln -fs /usr/share/zoneinfo/Your/Timezone /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata
 
 # Set working directory
 WORKDIR /app
