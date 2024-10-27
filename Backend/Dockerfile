@@ -3,13 +3,13 @@
 # Use a base image with CUDA support
 FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 
-# Set the timezone environment variable to avoid interactive prompts
-ENV TZ=America/New_York  # Change this to your preferred timezone
+# Set environment variable for timezone
+ENV TZ=Europe/Berlin
 
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Install dependencies and set timezone
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
@@ -18,12 +18,9 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     libatlas-base-dev \
     tzdata \
+    && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
+    && dpkg-reconfigure --frontend noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
-
-# Set the timezone configuration
-RUN echo "$TZ" > /etc/timezone && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
 
 # Clone OpenPose and install it
 RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
