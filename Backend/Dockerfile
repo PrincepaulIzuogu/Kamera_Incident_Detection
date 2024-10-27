@@ -28,22 +28,6 @@ RUN apt-get update && apt-get install -y \
     && dpkg-reconfigure -f noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone OpenPose repository
-RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
-
-# Set OpenPose as the working directory
-WORKDIR /openpose
-
-# Install OpenPose dependencies (directly in Dockerfile)
-RUN apt-get update && apt-get install -y \
-    libopencv-dev \
-    libboost-all-dev \
-    libhdf5-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libgoogle-glog-dev \
-    libatlas-base-dev \
-    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt ./
@@ -54,9 +38,6 @@ COPY ../../ ./
 
 # Copy your data folder to the container
 COPY data /app/data
-
-# Set environment variables for OpenPose
-ENV PYTHONPATH="/openpose/python:${PYTHONPATH}"
 
 # Set the command to run your application using Uvicorn
 CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
