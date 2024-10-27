@@ -19,15 +19,24 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     tzdata \
     libopencv-dev \
+    libboost-all-dev \
+    libhdf5-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    libgoogle-glog-dev \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean \
-    && apt-get autoremove -y
+    && rm -rf /var/lib/apt/lists/*
+
+# Cleanup previous installations
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt  # Ensure pip3 is used
+
+# Cleanup unnecessary files
+RUN rm -rf /tmp/*
 
 # Copy your application files
 COPY ../../ ./
