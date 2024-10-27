@@ -55,5 +55,5 @@ COPY ../../ ./
 # Set environment variables for OpenPose
 ENV PYTHONPATH="/openpose/python:${PYTHONPATH}"
 
-# Set the command to run your backend application
-CMD ["bash", "-c", "python3 src/data_preprocessing.py && python3 src/model_training.py && python3 src/real_time_detection.py"]
+# Set the command to run your application using Uvicorn
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
