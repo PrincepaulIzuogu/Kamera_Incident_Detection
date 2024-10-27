@@ -1,5 +1,3 @@
-# Backend/Dockerfile
-
 # Use a base image with CUDA support
 FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 
@@ -49,7 +47,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install Python dependencies
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt  # Ensure pip3 is used
 
 # Copy your application files
 COPY ../../ ./
@@ -58,4 +56,4 @@ COPY ../../ ./
 ENV PYTHONPATH="/openpose/python:${PYTHONPATH}"
 
 # Set the command to run your backend application
-CMD ["python", "src/data_preprocessing.py"]
+CMD ["bash", "-c", "python3 src/data_preprocessing.py && python3 src/model_training.py && python3 src/real_time_detection.py"]
