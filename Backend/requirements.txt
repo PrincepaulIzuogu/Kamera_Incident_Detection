@@ -3,5 +3,5 @@ numpy==1.24.4
 tensorflow==2.12.0
 flask
 twilio
-ml-dtypes<0.5.0,>=0.3.1
+ml-dtypes
 requests<3,>=2.21.0
