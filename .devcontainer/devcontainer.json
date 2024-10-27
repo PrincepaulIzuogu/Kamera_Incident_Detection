@@ -16,5 +16,5 @@
     ],
     "runArgs": ["--gpus", "all"],  // Use GPUs if available
     "postStartCommand": "python Backend/src/data_preprocessing.py && python Backend/src/model_training.py && python Backend/src/real_time_detection.py", // Run scripts automatically
-    "remoteUser": "user"           // Run commands as the 'user' user
+    "remoteUser": "root"           // Run commands as the 'root' user
 }
