@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     python3-pip \
     libatlas-base-dev \
+    lsb-release \  # Install lsb-release
     tzdata \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
