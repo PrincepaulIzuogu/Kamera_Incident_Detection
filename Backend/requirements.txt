@@ -6,3 +6,4 @@ twilio
 ml-dtypes
 requests
 uvicorn
+mediapipe
