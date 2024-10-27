@@ -30,7 +30,7 @@ RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpo
 # Set OpenPose as the working directory
 WORKDIR /openpose
 
-# Install dependencies for OpenPose
+# Install dependencies for OpenPose (ensure sudo is removed)
 RUN bash ./scripts/ubuntu/install_deps.sh
 
 # Install Python dependencies
