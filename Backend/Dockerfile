@@ -1,5 +1,3 @@
-# Backend/Dockerfile
-
 # Use a base image with CUDA support
 FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 
@@ -10,7 +8,7 @@ ENV TZ=Europe/Berlin
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies and set timezone
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
@@ -24,22 +22,20 @@ RUN apt-get update && apt-get install -y \
     && dpkg-reconfigure -f noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone OpenPose repository
+# Create a non-root user
+RUN useradd -m user
+
+# Switch to the new user
+USER user
+
+# Clone OpenPose and install it
 RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
 
 # Set OpenPose as the working directory
 WORKDIR /openpose
 
-# Install OpenPose dependencies
-RUN apt-get update && apt-get install -y \
-    libopencv-dev \
-    libboost-all-dev \
-    libhdf5-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libgoogle-glog-dev \
-    libatlas-base-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install dependencies for OpenPose
+RUN bash ./scripts/ubuntu/install_deps.sh
 
 # Install Python dependencies
 COPY requirements.txt ./
