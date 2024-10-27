@@ -2,7 +2,11 @@ import cv2
 import sys
 sys.path.append('/openpose/python')
 
-from openpose import pyopenpose as op
+try:
+    from openpose import pyopenpose as op
+except ImportError as e:
+    print("ImportError:", e)
+    sys.exit(1)
 
 def setup_openpose():
     params = {
@@ -41,6 +45,5 @@ def detect_falls(video_source):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    # Example usage: Update with your video source or camera index
     video_source = 0  # For webcam or specify a video file
     detect_falls(video_source)
