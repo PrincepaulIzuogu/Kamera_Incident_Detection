@@ -19,15 +19,11 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     tzdata \
     libopencv-dev \
-    libboost-all-dev \
-    libhdf5-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libgoogle-glog-dev \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
-    && rm -rf /var/lib/apt/lists/*
-
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && apt-get autoremove -y
 
 # Install Python dependencies
 COPY requirements.txt ./
