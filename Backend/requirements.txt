@@ -1,9 +1,9 @@
-opencv-python==4.7.0.72      # OpenCV for image processing
-numpy==1.24.3                 # Numpy for numerical operations (compatible with TensorFlow)
-tensorflow==2.13.1            # TensorFlow for machine learning
-flask==2.2.3                  # Flask for web framework
-twilio==7.10.1                # Twilio for SMS notifications
-ml-dtypes==0.2.0              # For improved performance in TensorFlow
-requests==2.31.0              # For making HTTP requests
-uvicorn==0.22.0               # ASGI server for running FastAPI or Flask applications
+opencv-python==4.10.0.84
+numpy==1.24.4
+tensorflow==2.13.1
+flask==3.0.3
+twilio==9.3.6
+ml-dtypes==0.2.0
+requests==2.32.3
+uvicorn==0.32.0
 mediapipe==0.10.11            # MediaPipe for real-time computer vision tasks
