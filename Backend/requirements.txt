@@ -6,6 +6,5 @@ twilio==9.3.6
 ml-dtypes==0.2.0
 requests==2.32.3
 uvicorn==0.32.0
-typing-extensions>=3.6.6,<4.6.0  # Adjusted for TensorFlow compatibility
+typing-extensions>=4.8.0,<4.9.0  # Adjusted for compatibility with TensorFlow and PyTorch
 protobuf==3.20.3  # Ensure compatibility with Mediapipe
-mediapipe==0.10.11
