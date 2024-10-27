@@ -52,6 +52,9 @@ RUN pip3 install --no-cache-dir -r requirements.txt  # Ensure pip3 is used
 # Copy your application files
 COPY ../../ ./
 
+# Copy your data folder to the container
+COPY data /app/data
+
 # Set environment variables for OpenPose
 ENV PYTHONPATH="/openpose/python:${PYTHONPATH}"
 
