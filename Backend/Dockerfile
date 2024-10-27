@@ -10,7 +10,7 @@ ENV TZ=Europe/Berlin
 # Set working directory
 WORKDIR /app
 
-# Install dependencies and set timezone
+# Install system dependencies and set timezone
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
@@ -24,14 +24,22 @@ RUN apt-get update && apt-get install -y \
     && dpkg-reconfigure -f noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone OpenPose and install it
+# Clone OpenPose repository
 RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
 
 # Set OpenPose as the working directory
 WORKDIR /openpose
 
-# Install dependencies for OpenPose (ensure sudo is removed)
-RUN bash ./scripts/ubuntu/install_deps.sh
+# Install OpenPose dependencies
+RUN apt-get update && apt-get install -y \
+    libopencv-dev \
+    libboost-all-dev \
+    libhdf5-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    libgoogle-glog-dev \
+    libatlas-base-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt ./
