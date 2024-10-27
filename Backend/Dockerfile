@@ -3,13 +3,6 @@
 # Use a base image with CUDA support
 FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 
-# Set the timezone
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y \
-    tzdata && \
-    ln -fs /usr/share/zoneinfo/Your/Timezone /etc/localtime && \
-    dpkg-reconfigure --frontend noninteractive tzdata
-
 # Set working directory
 WORKDIR /app
 
@@ -23,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     libatlas-base-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone OpenPose and install it
+# Clone OpenPose and its submodules
 RUN git clone --recursive https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /openpose
 
 # Set OpenPose as the working directory
@@ -33,11 +26,11 @@ WORKDIR /openpose
 RUN bash ./scripts/ubuntu/install_openpose.sh
 
 # Install Python dependencies
-COPY requirements.txt ./
+COPY requirements.txt ./ 
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy your application files
-COPY ../../ ./
+COPY ../../ ./ 
 
 # Set environment variables for OpenPose
 ENV PYTHONPATH="/openpose/python:${PYTHONPATH}"
