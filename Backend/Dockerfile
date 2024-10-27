@@ -26,7 +26,7 @@ RUN git submodule update --init --recursive
 WORKDIR /app
 
 # Copy requirements and install Python dependencies
-COPY requirements.txt ./
+COPY ./Backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire project directory into /app (going back two directories)
