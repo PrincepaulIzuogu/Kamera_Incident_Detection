@@ -1,9 +1,10 @@
 opencv-python==4.10.0.84
-numpy==1.24.4
+numpy==1.24.3
 tensorflow==2.13.1
 flask==3.0.3
 twilio==9.3.6
 ml-dtypes==0.2.0
 requests==2.32.3
 uvicorn==0.32.0
-mediapipe            # MediaPipe for real-time computer vision tasks
+typing-extensions>=4.8.0  # Added for PyTorch compatibility
+protobuf==3.20.3  # Added for Mediapipe compatibility
