@@ -1,8 +1,8 @@
 opencv-python==4.10.0.84
-numpy==1.16.4
-tensorflow==1.14.0
+numpy
+tensorflow
 flask==3.0.3
 twilio==9.3.6
-mediapipe==0.10.14
+mediapipe
 uvicorn==0.32.0
 requests==2.32.3
