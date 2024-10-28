@@ -31,18 +31,21 @@ RUN apt-get update && apt-get install -y \
 # Cleanup previous installations
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt  # Ensure pip3 is used
+# Create a virtual environment and activate it
+RUN python3 -m venv venv
+
+# Upgrade pip and install Python dependencies within the virtual environment
+RUN ./venv/bin/pip install --no-cache-dir --upgrade pip \
+    && ./venv/bin/pip install --no-cache-dir -r requirements.txt
 
 # Cleanup unnecessary files
 RUN rm -rf /tmp/*
 
 # Copy your application files
-COPY ../../ ./
+COPY ../../ ./ 
 
 # Copy your data folder to the container
 COPY data /app/data
 
 # Set the command to run your application using Uvicorn
-CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["./venv/bin/uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
