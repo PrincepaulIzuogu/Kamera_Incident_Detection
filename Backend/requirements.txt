@@ -1,12 +1,8 @@
 opencv-python==4.10.0.84
-numpy==1.24.3
-tensorflow==2.13.1
+numpy==1.26.4
+tensorflow==2.17.0
 flask==3.0.3
 twilio==9.3.6
-ml-dtypes==0.2.0
-requests==2.32.3
+mediapipe==0.10.14
 uvicorn==0.32.0
-typing-extensions>=3.6.6,<4.6.0  # Ensure compatibility with TensorFlow
-protobuf==3.20.3  # Ensure compatibility with Mediapipe
-torch==2.4.1  # Specify torch version to avoid compatibility issues
-mediapipe==0.10.11  # Add MediaPipe with the desired version
+requests==2.32.3
