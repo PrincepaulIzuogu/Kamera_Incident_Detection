@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     cmake \
     python3-dev \
     python3-pip \
+    python3-venv \   # Install python3-venv for creating virtual environments
     libatlas-base-dev \
     lsb-release \
     tzdata \
@@ -31,7 +32,7 @@ RUN apt-get update && apt-get install -y \
 # Cleanup previous installations
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Create a virtual environment and activate it
+# Create a virtual environment
 RUN python3 -m venv venv
 
 # Upgrade pip and install Python dependencies within the virtual environment
