@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     libprotobuf-dev \
     protobuf-compiler \
     libgoogle-glog-dev \
-    python3-venv \
+    python3-venv \  # Install python3-venv for creating virtual environments
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -34,8 +34,7 @@ RUN python -m venv /app/venv
 RUN /app/venv/bin/pip install --no-cache-dir --upgrade pip
 
 # Copy requirements.txt before installing dependencies
-COPY ./requirements.txt ./  # Ensure requirements.txt is copied before installing
-
+COPY ./requirements.txt ./  
 # Install Python dependencies within the virtual environment
 RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
 
@@ -43,7 +42,10 @@ RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
 RUN rm -rf /tmp/*
 
 # Copy your application files
-COPY . .
+COPY ../../ ./
+
+# Copy your data folder to the container
+COPY data /app/data
 
 # Set the command to run your application using Uvicorn
 CMD ["/app/venv/bin/uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
